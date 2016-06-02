@@ -15,7 +15,7 @@ public class Arvore {
     
     public Arvore pai;
     public Balde A, B;
-    ArrayList<Arvore> filhos = new ArrayList();
+    ArrayList<Arvore> filhos = new ArrayList();    
     
     // Construtor
     public Arvore(Arvore father, Balde A, Balde B){
@@ -30,7 +30,7 @@ public class Arvore {
     }
     
     void mostraCaminho(){
-        System.out.println("MOSTRANDO OS PAIS :"); 
+        System.out.println("MOSTRANDO O CAMINHO (de baixo para cima) :"); 
         Arvore pointer = pai;
         while (pointer != null){     
             pointer.visita();
@@ -39,54 +39,7 @@ public class Arvore {
         System.out.println("CHEGOU À RAIZ.");
         System.out.println("");  
     }
-        
-    public void buscaEmProfundidade(){  
-        
-        // Se encontrou o nó desejado
-        if (Main.encontrou(this) == 1) {            
-            System.out.println("");
-            System.out.println("ENCONTRADO");
-            visita();            
-            mostraCaminho();            
-        } else {
-            visita();
-        }        
-        
-        geraFilhos();
-        removeCiclo();
-        
-        // Continua a busca em profundidade
-        for (int i = 0; i < filhos.size(); i++) {
-            filhos.get(i).buscaEmProfundidade();
-        }
-    }
-
-    public void buscaEmLargura(){
-        
-        // Se encontrou o nó desejado
-        if (Main.encontrou(this) == 1) {
-            System.out.println("");
-            System.out.println("ENCONTRADO :");
-            visita();
-            mostraCaminho();
-            return;
-        }
-        
-        visita();
-        geraFilhos();
-        removeCiclo();
-        
-        // Enfileira os filhos
-        for (int i = 0; i < filhos.size(); i++) {
-            Arvore child = filhos.get(i);
-            Fila.push(child);
-        }
-        // Continua a busca
-        while (Fila.vazia() == 0) {            
-            Fila.pop().buscaEmLargura();            
-        }
-    }
-
+                           
     public void geraFilhos(){
         Arvore filho = new Arvore(this, A, B);
         filho.A.enche();
